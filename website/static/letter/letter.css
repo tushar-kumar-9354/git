@@ -1,0 +1,147 @@
+:root {
+    --theme-color: #285685;
+    --font-color: #333333; 
+    --shade1: rgba(242, 38, 19, 0.5);
+    --shade2: rgba(0, 255, 255, 0.5);
+    --theme-font: 'Arial', sans-serif; 
+}
+
+body {
+    background-color: white; 
+    font-family: var(--theme-font);
+    color: var(--font-color);
+    /* Removed flex properties to allow standard document flow */
+    /* Use this if content might be longer than the screen */
+}
+
+.textCont {
+    font-size: 150%;
+    /* Centering the block with auto margins and setting a reasonable top/bottom margin */
+    margin: 50px auto; 
+    width: 60%;
+    padding: 0 15px; /* Added padding to prevent text from hitting the edges */
+    
+    /* SCROLLING FIX REMOVED - The page should scroll, not the box. */
+    /* If you still need internal scrolling: 
+       max-height: 75vh; 
+       overflow-y: auto; 
+       padding-right: 15px; */
+}
+
+/* Typing | blinking effect */
+div.textCont::after {
+    content : "|";
+    color: var(--font-color); 
+    animation: blinky 1s linear infinite;
+}
+
+@keyframes blinky {
+    0% {opacity:0;}
+    49.9% {opacity:0;}
+    50% {opacity:1;}
+    99.9% {opacity:1;}
+}
+
+/* About me and project information - Footer */
+footer {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 100;
+}
+
+footer > a {
+    background-color: var(--theme-color);
+    color: white; /* Good contrast */
+    font-weight: bold;
+    font-family: "Megrim", sans-serif;
+    font-size: 110%;
+    text-decoration: none;
+    padding: 5px 20px;
+    border-radius: 3px;:root {
+    --theme-color: #285685;
+    --font-color: #333333; 
+    --shade1: rgba(242, 38, 19, 0.5);
+    --shade2: rgba(0, 255, 255, 0.5);
+    --theme-font: 'Arial', sans-serif; 
+}
+
+body {
+    background-color: white; 
+    font-family: var(--theme-font);
+    color: var(--font-color);
+    /* Allows standard document flow */
+}
+
+/* NEW: Styles to reduce the large space on the letter/message container */
+.letter-section {
+    /* Significantly reduced top/bottom padding from 60px to 20px */
+    padding: 20px 20px !important; 
+    height: auto !important;
+    min-height: unset !important;
+    
+    /* Ensure content remains centered (based on your screenshot) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.textCont {
+    font-size: 150%;
+    /* Centering the block with auto margins and setting a reasonable top/bottom margin */
+    margin: 50px auto; 
+    width: 60%;
+    padding: 0 15px;
+    
+    /* SCROLLING FIX REMAINS REMOVED as per previous fix */
+}
+
+/* Typing | blinking effect */
+div.textCont::after {
+    content : "|";
+    color: var(--font-color); 
+    animation: blinky 1s linear infinite;
+}
+
+@keyframes blinky {
+    0% {opacity:0;}
+    49.9% {opacity:0;}
+    50% {opacity:1;}
+    99.9% {opacity:1;}
+}
+
+/* About me and project information - Footer */
+footer {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 100;
+}
+
+footer > a {
+    background-color: var(--theme-color);
+    color: white; 
+    font-weight: bold;
+    font-family: "Megrim", sans-serif;
+    font-size: 110%;
+    text-decoration: none;
+    padding: 5px 20px;
+    border-radius: 3px;
+    transition: color 0.5s linear, box-shadow 0.5s ease-in;
+}
+
+footer > a:hover {
+    color: var(--theme-color); 
+    background-color: white;
+    text-shadow: none;
+    box-shadow: 0px 5px;
+}
+    transition: color 0.5s linear, box-shadow 0.5s ease-in;
+}
+
+footer > a:hover {
+    color: var(--theme-color); 
+    background-color: white;
+    text-shadow: none;
+    box-shadow: 0px 5px;
+}
