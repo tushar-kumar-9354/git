@@ -31,7 +31,7 @@
         <div class="name">Sweetheart</div>
         
         <div class="start-game-container">
-             <button id="start-game-button">Play Challenge to Unlock Final Surprise! 🕹️</button>
+             <button id="start-game-button">Play Challenge to Unlock slideshow 🕹️</button>
         </div>
     </div>
 
@@ -39,7 +39,7 @@
     <div id="game-stage" style="display: none;">
         
         <div id="scoreboard">
-            Computer: <span id="computer-score">0</span>  |   You: <span id="player-score">0</span>
+            ponni: <span id="computer-score">0</span>  |   You: <span id="player-score">0</span>
         </div>
         
         <form id="game-form">
@@ -67,7 +67,7 @@
                             <div class="thumb"></div>
                             <div class="arm"></div>
                         </div>
-                        <div class="hand-label">Computer</div>
+                        <div class="hand-label">ponni</div>
                     </div>
                     
                     <div id="icons">
@@ -111,7 +111,7 @@
         </form>
         
         <div id="final-next-button-container" style="display: none;">
-            <a href="{% url 'home3' %}"
+            <a href="{% url 'sidescroll' %}"
                 class="next-surprise-button">
                 👉 Next Surprise 🎈
             </a>
@@ -311,7 +311,7 @@
         /* Message Logic (CSS handles the text content) */
         #rock-rock:checked ~ div h2::before, #paper-paper:checked ~ div h2::before, #scissors-scissors:checked ~ div h2::before { content: "You Tied!" }
         #rock-paper:checked ~ div h2::before, #paper-scissors:checked ~ div h2::before, #scissors-rock:checked ~ div h2::before { content: "You Win!" }
-        #rock-scissors:checked ~ div h2::before, #paper-rock:checked ~ div h2::before, #scissors-paper:checked ~ div h2::before { content: "Computer Wins!" }
+        #rock-scissors:checked ~ div h2::before, #paper-rock:checked ~ div h2::before, #scissors-paper:checked ~ div h2::before { content: "ponni Wins!" }
 
         /* Icons/Labels */
         input[type="radio"] { position: absolute; top: -1000in; left: -1000in; }
@@ -419,22 +419,24 @@
                     (playerChoice === 'paper' && computerChoice === 'rock') ||
                     (playerChoice === 'scissors' && computerChoice === 'paper')
                 ) {
-                    playerScore++;
-                    playerScoreEl.textContent = playerScore;
-                    isWin = true;
-                } else {
                     computerScore++;
                     computerScoreEl.textContent = computerScore;
+                    
+                    isWin = true;
+                } else {
+                    playerScore++;
+                    playerScoreEl.textContent = playerScore;
+                    
                 }
                 
                 // Check for game winner (First to 3)
                 if (playerScore === WIN_SCORE) {
-                    alert("🎉 YOU WIN THE GAME! FINAL SURPRISE UNLOCKED! 🎉");
+                    alert("🎉 YOU WIN THE GAME PREETI MAM! YOU DESERVE THIS ! 🎉");
                     finalNextButton.style.display = 'block'; // SHOW THE FINAL BUTTON
                     nextRoundButton.textContent = 'Game Over';
                     nextRoundButton.disabled = true;
                 } else if (computerScore === WIN_SCORE) {
-                    alert("💻 Computer wins the game. Try again to unlock the surprise!");
+                    alert("🐼 ponni wins the game. you can do it mam lets go and try again i want to lose from you bcz i did very hardwork on the slide !");
                     
                     // Reset to start a new game
                     setTimeout(() => {

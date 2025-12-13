@@ -20,7 +20,7 @@
             max-width: 95%;
             margin: 0px auto;
         }
-        body { background-color: #f4f4f4; }
+        body { background-color: #222069; }
     </style>
 </head>
 
@@ -183,6 +183,15 @@
 
         </div>
 
+<div class="button-container">
+    <a href="{% url 'home' %}"
+        class="next-surprise-button"
+        onmouseover="this.style.background='#1aff55'; this.style.color='var(--theme-color)'; this.style.boxShadow='0 0 15px rgba(51, 255, 102, 0.8)'"
+        onmouseout="this.style.background='var(--font-color)'; this.style.color='black'; this.style.boxShadow='0 0 10px rgba(51, 255, 102, 0.5)'">
+        👉 Next Surprise 🎈
+    </a>
+</div>
+</style>
 <script>
 class Movie {
 
