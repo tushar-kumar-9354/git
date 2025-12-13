@@ -108,40 +108,31 @@
         <div class="box box-5" style="--img: url(https://i.postimg.cc/nrcWyW4H/img-5.jpg);" data-text="Mitsui"></div>
     </div>
 </section>
-<!-- 🎉 CELEBRATION + CARD SECTION -->
-<section id="celebration-card" class="section" 
-          style="background:#c0d6df; display:flex; justify-content:center; 
-                 ; padding:60px 0; position:relative; z-index:20;">
-
-    <div id="celeb-wrapper" 
-         style="width:50%; display:block; justify-content:center; 
-                align-items:center; position:relative; z-index:30; height: 100%;">
-        {% include 'celebration/celeb.html' %}
-    </div>
-
-    <div id="card-wrapper" 
-         style="width:50%; display:flex; justify-content:center; 
-                align-items:center; position:relative; z-index:30; background-color: #c0d6df;">
-        {% include 'card/card.html' %}
-    </div>
-
-</section>
 
 
-<section id="letter-section" class="section" style="background:#c0d6df; padding:60px 20px; display:flex; justify-content:center; align-items:center;z-index: 20;">
 
-    <div style="
-    max-width:800px;
-    width:90%;
-    padding:30px;
-    border-radius:20px;
-    z-index:200;
-    position:relative;
-">
-        {% include 'letter/letter.html' %}
-    </div>
+<div id="next-surprise-section" style="text-align:center; padding: 40px 20px; background:#233841;">
+    <a href="{% url 'home4' %}"
+       style="
+             padding:15px 35px;
+             background:#33ff66;
+             color:black;
+             font-family:'VT323', monospace;
+             font-size:32px;
+             border-radius:10px;
+             text-decoration:none;
+             border:3px solid #285685;
+             display:inline-block;
+             transition:0.3s;
+             position: relative;
+            z-index: 9999;
 
-</section>
+       "
+       onmouseover="this.style.background='#1aff55'"
+       onmouseout="this.style.background='#33ff66'">
+        👉 Next Surprise 🎈
+    </a>
+</div>
 
 <script>
     /* The entire JavaScript logic for the canvas animation remains identical.
