@@ -1,4 +1,4 @@
-{%load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +11,11 @@
 <body>
     <div class="textCont"></div>
 
-    <!-- Audio element - no autoplay, we control it precisely -->
-    <audio id="birthday-audio" loop preload="auto">
-        <source src="{% static 'backgroundmusic/I_Think_They_Call_This_Love_Cover.mp3' %}" type="audio/mpeg">
-    </audio>
+    <div class="button-container">
+        <a href="{% url 'page6' %}" class="next-surprise-button">
+            Next Surprise
+        </a>
+    </div>
 
 <style>
 :root {
@@ -36,19 +37,22 @@ body {
     padding: 0;
 }
 
-#birthday-audio { display: none; }
-
 .textCont {
     font-size: 150%;
     margin: 5% 10%;
     width: 80%;
     max-width: 1000px;
     flex-grow: 1;
+    white-space: pre-wrap; /* Preserves line breaks and wraps long lines */
 }
 
-div.textCont::after {
+.textCont::after {
     content: "|";
     animation: blinky 1s linear infinite;
+}
+
+.textCont.done::after {
+    content: ""; /* Hide cursor when typing is complete */
 }
 
 @keyframes blinky {
@@ -129,87 +133,34 @@ These words are my promise to never take you for granted or doubt the love that 
 
 ILY`;
 
-const paragraph = text.split("");
+const letters = text.split("");
 let i = 0;
-const audio = document.getElementById('birthday-audio');
+const textCont = document.querySelector(".textCont");
 
-// Ultra-precise timing system
-let lastSavedTime = 0;
-const STORAGE_KEY = 'birthdaySongTime';
-
-// Save time extremely frequently (every 100ms)
-function startSavingTime() {
-    setInterval(() => {
-        if (!audio.paused && !audio.ended) {
-            localStorage.setItem(STORAGE_KEY, audio.currentTime);
-            lastSavedTime = performance.now();
-        }
-    }, 100);
-}
-
-// Restore and play with maximum precision
-function restoreAudio() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-        const targetTime = parseFloat(saved);
-        audio.currentTime = targetTime;
-        
-        // Play immediately - user already interacted on previous page
-        audio.play().catch(() => {
-            // Fallback: play on first click if blocked
-            document.body.addEventListener('click', () => audio.play(), { once: true });
-        });
-    } else {
-        audio.play();
-    }
-}
-
-// Start everything as soon as possible
 window.addEventListener('DOMContentLoaded', () => {
-    // 1. Start audio restoration immediately
-    restoreAudio();
-    
-    // 2. Start frequent time saving
-    startSavingTime();
-    
-    // 3. Start typing animation after tiny delay
     setTimeout(() => {
-        dashOut(paragraph);
+        typeOut();
     }, 800);
 });
 
-// Final save on page hide/unload
-window.addEventListener('pagehide', () => {
-    localStorage.setItem(STORAGE_KEY, audio.currentTime);
-});
-window.addEventListener('beforeunload', () => {
-    localStorage.setItem(STORAGE_KEY, audio.currentTime);
-});
-
-function dashOut(arr) {
-    if (i < arr.length) {
-        document.querySelector(".textCont").textContent += arr[i];
+function typeOut() {
+    if (i < letters.length) {
+        textCont.textContent += letters[i];
         i++;
-        setTimeout(() => dashOut(arr), interval(arr[i]));
+        setTimeout(typeOut, getDelay(letters[i]));
+    } else {
+        // Typing finished → hide blinking cursor
+        textCont.classList.add("done");
     }
 }
 
-function interval(letter) {
-    if (letter === ";" || letter === "." || letter === ",") {
+function getDelay(nextLetter) {
+    if (nextLetter === ";" || nextLetter === "." || nextLetter === ",") {
         return Math.floor(Math.random() * 500 + 500);
     }
     return Math.floor(Math.random() * 130 + 20);
 }
 </script>
-
-<div class="button-container">
-    <a href="{% url 'page6' %}"
-        class="next-surprise-button"
-        onmouseover="this.style.background='#1aff55'; this.style.color='var(--theme-color)'; this.style.boxShadow='0 0 15px rgba(51, 255, 102,0.8)'"
-        onmouseout="this.style.background='var(--font-color)'; this.style.color='black'; this.style.boxShadow='0 0 10px rgba(51, 255, 102, 0.5)'">
-        Next Surprise
-    </a>
-</div>
 
 </body>
 </html>

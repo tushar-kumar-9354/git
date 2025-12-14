@@ -21,7 +21,7 @@
             flex-direction: column;
             align-items: center;
         }
-        #birthday-audio { display: none; }
+        
         /* NEW: Container for cake and candles to maintain alignment */
         #cake-assembly {
             position: relative; /* Establish positioning context for candles */
@@ -279,10 +279,7 @@
     </style>
 </head>
 <body>
-    <!-- AUDIO ELEMENT ADDED HERE - Same as in home.html -->
-    <audio id="birthday-audio" autoplay loop>
-        <source src="{% static 'backgroundmusic/I_Think_They_Call_This_Love_Cover.mp3' %}" type="audio/mpeg">
-    </audio>
+    
 
     <div id="cake-assembly">
         <div class="velas">

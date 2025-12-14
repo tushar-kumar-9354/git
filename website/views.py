@@ -13,14 +13,10 @@ def page5(request):
     return render(request, 'page5.html')
 def cake(request):
     return render(request, "cake.html")
-def home4(request):
-    return render(request, "home4.html")
-def gopher(request):
-    return render(request, "gopher.html")
-def sidescroll(request):
-    return render(request, "sidescroll.html")
-def page(request):
-    return render(request, "page.html")
+
+def page8(request):
+    return render(request, "page8.html")
+
 def page2(request):
     return render(request, "page2.html")
 def page1(request):
@@ -29,3 +25,5 @@ def page3(request):
     return render(request, "page3.html")
 def page7(request):
     return render(request, "page7.html")
+def page9(request):
+    return render(request, "page9.html")

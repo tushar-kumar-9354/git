@@ -11,9 +11,7 @@
     
     <link rel="stylesheet" href="{% static 'backgroundmusic/music.css' %}">
     <link rel="stylesheet" href="{% static 'photos/photo.css' %}">
-    <link rel="stylesheet" href="{% static 'card/card.css' %}">
-    <link rel="stylesheet" href="{% static 'celebration/celeb.css' %}">
-    <link rel="stylesheet" href="{% static 'letter/letter.css' %}">
+   
     <style>
         /* Base styles - CRITICAL FIX FOR SCROLLING */
         html, body {
@@ -26,7 +24,7 @@
             overflow-y: auto; /* Allow vertical scrolling */
             
             /* UPDATED: Set base background to match sections */
-            background-color: #c0d6df; 
+            background-color: #000000; 
             scroll-behavior: smooth; /* Optional: Makes scrolling smoother */
         }
         
@@ -92,21 +90,21 @@
     </div>
 </div>
 
-<section id="birthday-crackers" class="section" style="background:#c0d6df;">
+<section id="birthday-crackers" class="section" style="background:#000000;">
     
     <canvas id="cracker-canvas"></canvas></section>
 
 
-<section id="photos" class="section" style="background:#c0d6df; display:flex; justify-content:center; align-items:center; padding:50px; right:50px;">
+<section id="photos" class="section" style="background:#000000; display:flex; justify-content:center; align-items:center; padding:50px; right:50px;">
 
 
     <div class="container">
-        <div class="box box-1" style="--img: url(https://i.postimg.cc/sgBkfbtx/img-1.jpg);" data-text="Renji"></div>
-        <div class="box box-2" style="--img: url(https://i.postimg.cc/3RZ6bhDS/img-2.jpg);" data-text="Sora"></div>
-        <div class="box box-3" style="--img: url(https://i.postimg.cc/DZhHg0m4/img-3.jpg);" data-text="Kaito"></div>
-        <div class="box box-4" style="--img: url(https://i.postimg.cc/KjqWx5ft/img-4.jpg);" data-text="Tsuki"></div>
-        <div class="box box-5" style="--img: url(https://i.postimg.cc/nrcWyW4H/img-5.jpg);" data-text="Mitsui"></div>
-    </div>
+    <div class="box box-1" style="--img: url('{% static 'images/15.jpg' %}');" data-text="PREETU"></div>
+    <div class="box box-2" style="--img: url('{% static 'images/2.jpg' %}');" data-text="Suarni"></div>
+    <div class="box box-3" style="--img: url('{% static 'images/5.png' %}');" data-text="beauty"></div>
+    <div class="box box-4" style="--img: url('{% static 'images/6.png' %}');" data-text="kallo"></div>
+    <div class="box box-5" style="--img: url('{% static 'images/4.png' %}');" data-text="cutie"></div>
+</div>
 </section>
 
 
@@ -153,7 +151,7 @@
         // --- END CRITICAL ADDITIONS ---
 
         opts = {
-            strings: [ 'HAPPY', 'BIRTHDAY!', 'PREETU ' , 'SUARNI' ],
+            strings: [ 'HAPPY', 'BIRTHDAY!!' , 'SUARNI ' ],
             charSize: 30,
             charSpacing: 35,
             lineHeight: 40,
@@ -372,7 +370,7 @@
     function anim(){
         window.requestAnimationFrame(anim);
         // UPDATED: Clear only the visible canvas area with the new pink color (FF69B4)
-        ctx.fillStyle='#c0d6df'; 
+        ctx.fillStyle='#000000'; 
         ctx.fillRect(0,0,w,h);
         ctx.translate(hw,hh);
         
@@ -441,16 +439,7 @@
 
 <!-- ------------------------------------------------------------------- -->
 <!-- 6) NOW load card.js (depends on jQuery) -->
-<!-- ------------------------------------------------------------------- -->
-<script src="{% static 'card/card.js' %}"></script>
 
-
-<!-- ------------------------------------------------------------------- -->
-<!-- 7) FINALLY load your celebration JS (depends on GSAP + Draggable) -->
-<!-- ------------------------------------------------------------------- -->
-<script src="{% static 'celebration/celeb.js' %}"></script>
-<!-- LETTER JS (must be last) -->
-<script src="{% static 'letter/letter.js' %}"></script>
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +17,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/easing/EasePack.min.js"></script>
 
     <style>
+        #birthday-audio { display: none; }
+        /* NEW: Container for cake and candles to maintain alignment */
+        
         div#container {
             max-width: 95%;
             margin: 0px auto;
@@ -25,6 +29,9 @@
 </head>
 
 <body>
+    <audio id="birthday-audio" autoplay loop>
+        <source src="{% static 'backgroundmusic/I_Think_They_Call_This_Love_Cover.mp3' %}" type="audio/mpeg">
+    </audio>
     
 <div id="container">
             <svg id="main" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1052.3622 744.09448" id="svg2">
@@ -172,7 +179,7 @@
                 </text>
                 
                 <text id="detach-msg" x="526" y="50" font-family="'Quicksand', sans-serif" font-weight="900" font-size="28" fill="#ff477e" text-anchor="middle" opacity="0" style="pointer-events:none;">
-    <tspan x="526" dy="-20">🎉 **HAPPY BIRTHDAY, FLYER!** 🎉</tspan>
+    <tspan x="526" dy="-20">🎉 HAPPY BIRTHDAY, MAM!🎉</tspan>
     <tspan x="526" dy="55">✨hello mam i am tushar's manager ponni ...</tspan>
     <tspan x="526" dy="35">💖 i have to say you look more beautiful than sir tells me!! 💖</tspan>
     <tspan x="526" dy="45" font-size="22" font-weight="700" fill="#67abdf">so are you ready for your birthday ?? 🎁</tspan>
@@ -183,14 +190,27 @@
 
         </div>
 
-<div class="button-container">
-    <a href="{% url 'page2' %}"
-        class="next-surprise-button"
-        onmouseover="this.style.background='#1aff55'; this.style.color='var(--theme-color)'; this.style.boxShadow='0 0 15px rgba(51, 255, 102, 0.8)'"
-        onmouseout="this.style.background='var(--font-color)'; this.style.color='black'; this.style.boxShadow='0 0 10px rgba(51, 255, 102, 0.5)'">
-        👉 Next Surprise 🎈
-</a>
-</div>
+<div id="next-surprise-section" style="text-align:center; padding: 40px 20px; background:#222069;">
+        <a href="{% url 'page2' %}"
+           style="
+                 padding:15px 35px;
+                 background:#33ff66;
+                 color:black;
+                 font-family:'VT323', monospace;
+                 font-size:32px;
+                 border-radius:10px;
+                 text-decoration:none;
+                 border:3px solid #285685;
+                 display:inline-block;
+                 transition:0.3s;
+                 position: relative;
+                 z-index: 9999;
+           "
+           onmouseover="this.style.background='#1aff55'"
+           onmouseout="this.style.background='#33ff66'">
+            Next Surprise 
+        </a>
+    </div>
 </style>
 <script>
 class Movie {
@@ -311,33 +331,48 @@ _redrawString() {
     var actors = this.actors;
     var clearTl = new TimelineMax();
 
-    // Get the exact position of the Gopher's head in SVG coordinates
-    var gopherCTM = this.actors.gopher.getCTM();
-    var headCenterX = gopherCTM.e + 512 * 0.48065;  // 512 is center X of original gopher
-    var headTopY    = gopherCTM.f + 120 * 0.48065;  // 120 is roughly the top of head
+    // --- FIX START ---
+
+    // 1. Get the Gopher's bounding box (dimensions/position) in the SVG's root coordinate system
+    const gopherBBox = actors.gopher.getBBox();
+    
+    // 2. Calculate the center of the Gopher's head (approximately)
+    // The head is roughly in the center of the gopher figure horizontally.
+    // The top of the head is near the top of the gopher figure.
+    const headCenterX = gopherBBox.cx; 
+    const headTopY = gopherBBox.y + (gopherBBox.height * 0.05); // Estimate top 5% of gopher body as the head top
+
+    // The party-hat SVG element's origin is around (325, 355) relative to the Gopher's coordinate system
+    // We need to shift it so the bottom center of the hat (its transformOrigin) aligns with headCenterX/headTopY.
+    const hatOffsetFactorX = 325 * 0.48065; // Convert hat's internal X-offset to canvas coords (0.48065 is the Gopher's scale)
+    const hatOffsetFactorY = 355 * 0.48065; // Convert hat's internal Y-offset to canvas coords
+
+    const finalHatX = headCenterX - hatOffsetFactorX;
+    const finalHatY = headTopY - hatOffsetFactorY;
+
+    // --- FIX END ---
 
     clearTl
         .set(actors.greeting, {autoAlpha: 0})
-        .set(actors.detachMsg, {autoAlpha: 0}) // Ensure message is hidden at start
+        .set(actors.detachMsg, {autoAlpha: 0})
         .set([actors.hatConfettiLeft, actors.hatConfettiRight], {autoAlpha:0})
         .set([actors.balloonConfettiLeft, actors.balloonConfettiRight], {autoAlpha:0})
 
-        // HAT: Perfectly centered on head, slightly above
+        // HAT: Position based on calculated Gopher head center
         .set(actors.partyHat, {
             autoAlpha: 0,
             scale: 0.1,
-            x: headCenterX - 420,   // Adjust to center horizontally
-            y: headTopY - 505,      // This is the magic number — lifts hat exactly onto head
-            transformOrigin: "50% 100%"  // Scale from bottom of hat (tip sits on head)
+            x: finalHatX, 
+            y: finalHatY + 30, // Added +10 to account for a slight visual offset
+            transformOrigin: "50% 100%" // Scale from bottom of hat (tip sits on head)
         })
 
         // BALLOON: Start from way above
-                // Inside setStage() — replace the balloon .set() block:
         .set(actors.balloon, {
             autoAlpha: 0,
             scale: 0.1,
-            x: 0,           // Perfect horizontal position
-            y: -0,         // Perfect height — floats beautifully
+            x: 0,
+            y: 0, 
             transformOrigin: "bottom center"
         })
 
