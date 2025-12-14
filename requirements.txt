@@ -1,0 +1,5 @@
+whitenoise[brotli]
+Django>=3.2
+psycopg2-binary
+dj-database-url
+waitress
