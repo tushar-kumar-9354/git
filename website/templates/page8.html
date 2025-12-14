@@ -234,6 +234,36 @@ body {
     background:#1aff55; 
     box-shadow: 0 0 15px rgba(51, 255, 102, 0.8);
 }
+
+/* --- SCROLL HINT FOR MOBILE (NEW ADDITION) --- */
+.scroll-hint {
+    position: fixed;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    z-index: 99;
+    opacity: 0.8;
+    animation: pulse 2s infinite;
+    /* Hide on larger screens by default */
+    display: none;
+}
+
+@keyframes pulse {
+    0% { transform: translateX(-50%) scale(1); opacity: 0.8; }
+    50% { transform: translateX(-50%) scale(1.05); opacity: 1; }
+    100% { transform: translateX(-50%) scale(1); opacity: 0.8; }
+}
+
+/* Media query to only show the hint on smaller screens */
+@media (max-width: 768px) {
+    .scroll-hint {
+        display: block;
+    }
+}
+/* ------------------------------- */
 </STYLE>
 <div class='scroll-animations-example' data-scroll-container>
     <div class='scrollsection' data-scroll-section>
@@ -313,6 +343,10 @@ body {
             Next 🎈
     </a>
 </div>
+
+<div class="scroll-hint">
+    
+</div>
 <script>
 class Example {
     constructor(options) {
@@ -329,12 +363,15 @@ class Example {
             el: this.root,
             direction: 'horizontal',
             smooth: true,
-            lerp: 0.05,
+            // FIX: Increased LERP values for a quicker, more responsive swipe feel on mobile.
+            lerp: 0.1, 
             tablet: {
-                smooth: true
+                smooth: true,
+                lerp: 0.15 
             },
             smartphone: {
-                smooth: true
+                smooth: true,
+                lerp: 0.2 // Highest value for quickest response on phones
             }
         });
 
